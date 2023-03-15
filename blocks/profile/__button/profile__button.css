@@ -31,7 +31,7 @@
 
 @media all and (min-width: 320px) and (max-width: 708px) {
   .profile__button {
-    width: calc(100% - 2*19px);;
+    width: calc(100% - 2*19px);
     max-width: 282px;
     margin-top: 36px;
     background-size: 16px 16px;
