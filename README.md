@@ -19,4 +19,4 @@
 
 **Ссылка на GitHub Pages**
 
-https://ultramari000.github.io./russian-travel/index.html
+https://ultramari000.github.io/mesto/index.html
