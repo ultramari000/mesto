@@ -1,0 +1,18 @@
+.profile__info {
+  padding: 22px 0 25px 30px;
+  display: grid;
+  grid-template-areas:
+  "name button"
+  "subtitle .";
+  row-gap: 16px;
+}
+
+@media all and (max-width: 513px) and (min-width: 320px) {
+  .profile__info {
+    grid-template-columns: auto 18px;
+    grid-template-rows: 26px auto;
+    padding: 26px 0 0 29px;
+    row-gap: 14px;
+    column-gap: 10px;
+  }
+}

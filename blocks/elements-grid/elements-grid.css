@@ -1,0 +1,10 @@
+.elements-grid {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
+  justify-items: center;
+  column-gap: 17px;
+  row-gap: 20px;
+}

@@ -1,0 +1,22 @@
+.profile__form {
+  display: flex;
+}
+
+@media all and (max-width: 945px){
+  .profile__form {
+    padding-left: 27px;
+  }
+}
+
+@media all and (max-width: 708px){
+  .profile__form {
+    padding-left: 0;
+  }
+}
+
+@media all and (max-width: 513px) and (min-width: 320px) {
+  .profile__form {
+    flex-direction: column;
+    align-items: center;
+  }
+}
