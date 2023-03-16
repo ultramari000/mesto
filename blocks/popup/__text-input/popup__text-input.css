@@ -1,4 +1,4 @@
-.popup__first-field {
+.popup__text-input {
   color: #000;
   font-weight: 400;
   font-size: 14px;
@@ -9,4 +9,5 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  margin-bottom: 30px;
 }

@@ -1,5 +1,5 @@
 .popup__submit-button {
-  margin-top: 48px;
+  margin-top: 18px;
   background-color: #000;
   padding-top: 14px;
   padding-bottom: 18px;
@@ -20,6 +20,6 @@
   .popup__submit-button {
     font-size: 14px;
     max-height: 46px;
-    margin-top: 45px;
+    margin-top: 15px;
   }
 }
