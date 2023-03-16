@@ -4,14 +4,14 @@
   grid-template-areas:
   "name button"
   "subtitle .";
-  row-gap: 16px;
+  row-gap: 8px;
 }
 
 @media all and (max-width: 513px) and (min-width: 320px) {
   .profile__info {
     grid-template-columns: auto 18px;
     grid-template-rows: 26px auto;
-    padding: 26px 0 0 29px;
+    padding: 26px 0 0 20px;
     row-gap: 14px;
     column-gap: 10px;
   }

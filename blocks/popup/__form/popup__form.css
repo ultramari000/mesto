@@ -7,6 +7,6 @@
 @media all and (min-width: 320px) and (max-width: 540px) {
   .popup__form {
     max-width: 238px;
-    padding: 75px 22px;
+    padding: 75px 22px 25px;
   }
 }
