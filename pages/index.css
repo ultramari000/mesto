@@ -19,8 +19,7 @@
 @import url(../blocks/profile/__name/profile__name.css);
 @import url(../blocks/profile/__subtitle/profile__subtitle.css);
 
-/* подключаем elements и elements-grid */
-@import url(../blocks/elements/elements.css);
+/* подключаем elements-grid */
 @import url(../blocks/elements-grid/elements-grid.css);
 
 /* подключаем element */
@@ -29,6 +28,8 @@
 @import url(../blocks/element/__info/element__info.css);
 @import url(../blocks/element/__info-title/element__info-title.css);
 @import url(../blocks/element/__info-like/element__info-like.css);
+@import url(../blocks/element/__delete-button/element__delete-button.css);
+@import url(../blocks/element/__info-like/_active/element__info-like_active.css);
 
 /* подключаем footer */
 @import url(../blocks/footer/footer.css);
@@ -43,3 +44,9 @@
 @import url(../blocks/popup/__submit-button/popup__submit-button.css);
 @import url(../blocks/popup/__close-button/popup__close-button.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
+
+/* подключаем image popup */
+@import url(../blocks/image-popup/image__popup.css);
+@import url(../blocks/image-popup/__img/image-popup__img.css);
+@import url(../blocks/image-popup/__content/image-popup__content.css);
+@import url(../blocks/image-popup/__caption/image-popup__caption.css);

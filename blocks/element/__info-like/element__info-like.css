@@ -1,13 +1,13 @@
 .element__info-like {
-  background-image: url(../../../images/like.png);
   background-repeat: no-repeat;
   margin-right: 15px;
   width: 22px;
   height: 19px;
   background-size: 100%;
   background-position: center;
-  background-color: #fff;
+  background-color: rgba(0, 0, 0, 0);
   border: 0;
+  background-image: url(../../../images/like.png);
   transition: opacity 1s;
 }
 
