@@ -6,7 +6,7 @@ const validationConfig = {
   inactiveButtonClass: 'popup__button_disabled', //класс модификатор для дизэйбла кнопки "сохранить"
   inputErrorClass: 'popup__input-invalid', //класс модификатор для инпутов при возникновении ошибки
   errorClass: 'popup__error_visible', //класс для видимости текста ошибки формы
-  errorTemplateSelector: '.popup__error_type_'
+  errorTemplateSelector: '.popup__error_type-'
 };
 
 function enableValidation(validationConfig) {
