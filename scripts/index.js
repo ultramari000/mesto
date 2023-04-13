@@ -8,6 +8,9 @@ const nameInput = popupProfileElement.querySelector('.popup__text-input_type_nam
 const jobInput = popupProfileElement.querySelector('.popup__text-input_type_description'); //инпут описания в попапе профиля
 const profileNameElement = document.querySelector('.profile__name'); // имя профиля на странице
 const profileDescriptionElement = document.querySelector('.profile__subtitle'); //описание профиля на странице
+const inputListFromProfileForm = popupProfileElement.querySelector('.popup__input'); //инпут описания в попапе профиля
+const submitButtonFromProfileForm = popupProfileElement.querySelector('.popup__submit-button');
+const popupElement = document.querySelectorAll('.popup');
 
 //отправка формы
 function handleProfileFormSubmit(evt) {
@@ -20,19 +23,38 @@ function handleProfileFormSubmit(evt) {
 //универсальная функция открытия попапа
 function openPopup(popup) {
   popup.classList.add('popup_opened'); //добавление класса с открытым попапом
+  document.addEventListener('keydown', closePopupByEscape);
 }
 
 //функция открытия попапа профиля 
 function openProfilePopup() {
+  resetErrorForOpeningPopup(formForSubmitProfileElement);
   openPopup(popupProfileElement);
   nameInput.value = profileNameElement.textContent; //изначально стоит не плейсхолдер а имя из html
   jobInput.value = profileDescriptionElement.textContent; //изначально стоит не плейсхолдер а описание из html
+  toggleButtonStyle(inputListFromProfileForm, submitButtonFromProfileForm, validationConfig.inactiveButtonClass);
 };
 
 //универсальная функция закрытия попапа
 function closePopup (popup) {
   popup.classList.remove('popup_opened'); //удаление класса с открытым попапом
+  document.removeEventListener('keydown', closePopupByEscape);
 }
+
+// закрыть попап по клику на эскейп
+function closePopupByEscape(evt) {
+  if (evt.key === 'Escape') {
+    const popupOpened = document.querySelector('.popup_opened');
+    closePopup(popupOpened);
+  }
+}
+
+// закрыть попап по клику вне попапа
+function closePopupByClickOverlay(evt) {
+  if (evt.target === evt.currentTarget) {
+    closePopup(evt.target);
+  }
+};
 
 //функция закрытия попапа профиля
 function closeProfilePopup() {
@@ -48,13 +70,19 @@ const placeInput = popupPlaceCardElement.querySelector('.popup__text-input_type_
 const imgInput = popupPlaceCardElement.querySelector('.popup__text-input_type_link'); //инпут ссылки на картинку
 const templateElement = document.querySelector('#element-template').content;
 const placesList = document.querySelector('.elements-grid'); //куда добавляются все карточки
-const formForSubmitPlaceElement = popupPlaceCardElement.querySelector('.popup__form_add-card'); //форма для сабмита
+const formForSubmitPlaceElement = popupPlaceCardElement.querySelector('.popup__form'); //форма для сабмита
 const likeButton = popupPlaceCardElement.querySelector('.element__info-like'); //кнопка лайка
+const inputListFromPlaceForm = popupPlaceCardElement.querySelectorAll('.popup__input');
+const submitButtonFromPlaceForm = popupPlaceCardElement.querySelector('.popup__submit-button');
 
 //открыть попап с добавлением карточки
 function openPlacePopup() {
+  resetErrorForOpeningPopup(formForSubmitPlaceElement);
+  formForSubmitPlaceElement.reset();
   openPopup(popupPlaceCardElement);
+  toggleButtonStyle(inputListFromPlaceForm, submitButtonFromPlaceForm, validationConfig.inactiveButtonClass);
 };
+
 //закрыть попап добавления карточки
 function closePlacePopup() {
   closePopup(popupPlaceCardElement);
@@ -119,3 +147,6 @@ openPlacePopupButtonElement.addEventListener('click', openPlacePopup); //по к
 closePlacePopupButtonElement.addEventListener('click', closePlacePopup); //по клику на кнопку крестика попап карточки закрывается
 closeImageElementButton.addEventListener('click', closeImagePopup);
 formForSubmitProfileElement.addEventListener('submit', handleProfileFormSubmit); //по клику отправляется форма профиля
+popupProfileElement.addEventListener('mousedown', (evt) => closePopupByClickOverlay(evt));
+popupPlaceCardElement.addEventListener('mousedown', (evt) => closePopupByClickOverlay(evt));
+openedImageElement.addEventListener('mousedown', (evt) => closePopupByClickOverlay(evt));
