@@ -1,3 +1,8 @@
+import { initialCards } from './cards.js';
+import { Card } from './Card.js';
+import { FormValidator } from './ FormValidator.js';
+
+
 //попап профиля
 //константы попапа изменения профиля
 const popupProfileElement = document.querySelector('.popup_profile-info'); //попап информации профиля
@@ -11,6 +16,18 @@ const profileDescriptionElement = document.querySelector('.profile__subtitle'); 
 const inputListFromProfileForm = popupProfileElement.querySelector('.popup__input'); //инпут описания в попапе профиля
 const submitButtonFromProfileForm = popupProfileElement.querySelector('.popup__submit-button');
 const popupElement = document.querySelectorAll('.popup');
+const popupProfileFormForValidation = document.forms.profileForm;
+const popupPLaceFormForValidation = document.forms.addPlaceForm;
+
+// объекты для валидации (перенесены из validate.js из пр6)
+const validationConfig = {
+  inputSelector: '.popup__input', //селектор инпутов внутри этой формы
+  submitButtonSelector: '.popup__submit-button', //селектор кнопки сабмита этой формы
+  inactiveButtonClass: 'popup__button_disabled', //класс модификатор для дизэйбла кнопки "сохранить"
+  inputErrorClass: 'popup__input-invalid', //класс модификатор для инпутов при возникновении ошибки
+  errorClass: 'popup__error_visible', //класс для видимости текста ошибки формы
+  errorTemplateSelector: '.popup__invalid-span-'
+};
 
 //отправка формы
 function handleProfileFormSubmit(evt) {
@@ -18,7 +35,7 @@ function handleProfileFormSubmit(evt) {
   profileNameElement.textContent = nameInput.value; //замена имени на имя из инпута
   profileDescriptionElement.textContent = jobInput.value; //замена описания на описание из инпута
   closeProfilePopup(); // закрыть попап после сабмита
-};
+}
 
 //универсальная функция открытия попапа
 function openPopup(popup) {
@@ -28,11 +45,10 @@ function openPopup(popup) {
 
 //функция открытия попапа профиля 
 function openProfilePopup() {
-  resetErrorForOpeningPopup(formForSubmitProfileElement);
+  formProfileInfoValidator.resetForOpenedForm();
   openPopup(popupProfileElement);
   nameInput.value = profileNameElement.textContent; //изначально стоит не плейсхолдер а имя из html
   jobInput.value = profileDescriptionElement.textContent; //изначально стоит не плейсхолдер а описание из html
-  toggleButtonStyle(inputListFromProfileForm, submitButtonFromProfileForm, validationConfig.inactiveButtonClass);
 };
 
 //универсальная функция закрытия попапа
@@ -68,29 +84,21 @@ const closePlacePopupButtonElement = popupPlaceCardElement.querySelector('.popup
 const openPlacePopupButtonElement = document.querySelector('.profile__button'); //кнопка с плюсом для добавления карточки места
 const placeInput = popupPlaceCardElement.querySelector('.popup__text-input_type_place'); //ипут названия места
 const imgInput = popupPlaceCardElement.querySelector('.popup__text-input_type_link'); //инпут ссылки на картинку
-const templateElement = document.querySelector('#element-template').content;
+const templateElement = '#element-template';
 const placesList = document.querySelector('.elements-grid'); //куда добавляются все карточки
 const formForSubmitPlaceElement = popupPlaceCardElement.querySelector('.popup__form'); //форма для сабмита
-const likeButton = popupPlaceCardElement.querySelector('.element__info-like'); //кнопка лайка
-const inputListFromPlaceForm = popupPlaceCardElement.querySelectorAll('.popup__input');
-const submitButtonFromPlaceForm = popupPlaceCardElement.querySelector('.popup__submit-button');
 
 //открыть попап с добавлением карточки
 function openPlacePopup() {
-  resetErrorForOpeningPopup(formForSubmitPlaceElement);
+  formPLaceInfoValidator.resetForOpenedForm();
   formForSubmitPlaceElement.reset();
   openPopup(popupPlaceCardElement);
-  toggleButtonStyle(inputListFromPlaceForm, submitButtonFromPlaceForm, validationConfig.inactiveButtonClass);
 };
 
 //закрыть попап добавления карточки
 function closePlacePopup() {
   closePopup(popupPlaceCardElement);
 };
-//функция для лайка
-function likeCard(evt) {
-  evt.target.classList.toggle('element__info-like_active');
-}
 
 //константы попапа с открытием картинки
 const openedImageElement = document.querySelector('.image-popup');
@@ -111,35 +119,36 @@ function closeImagePopup() {
   closePopup(openedImageElement);
 }
 
-// переносим в темплейт
-function createCard(item) {
-  const placeElement = templateElement.querySelector('.element').cloneNode(true);
-  const imgPlaceElement = placeElement.querySelector('.element__photo'); //добавили фото
-  const buttonDeletePlaceElement = placeElement.querySelector('.element__delete-button'); //добавили кнопку мусорки
-  const buttonLikePlaceElement = placeElement.querySelector('.element__info-like'); //добавили кнопку лайка
-  imgPlaceElement.src = item.link;
-  imgPlaceElement.alt = item.name;
-  placeElement.querySelector('.element__info-title').textContent = item.name;
-  buttonLikePlaceElement.addEventListener('click', evt => likeCard(evt));
-  buttonDeletePlaceElement.addEventListener('click', evt => evt.target.closest('.element').remove());
-  imgPlaceElement.addEventListener('click',() => openImagePopup(item));
-
-  return placeElement;
+//функция, которая создает экземпляр класса
+function addNewCard(item) {
+  const card = new Card(item, templateElement, openImagePopup);
+  const сardElement = card.createCard();
+  return сardElement; //создаем dom-элемент
 }
 
 //добавляем карточки в список
 initialCards.forEach((item) => {
-  const placeCard = createCard(item);
-  placesList.append(placeCard);
+  placesList.append(addNewCard(item));
 })
 
+//функция добавления карточки с местом при сабмите
 formForSubmitPlaceElement.addEventListener('submit', (evt) => {
   evt.preventDefault(); // запрет отправки на серв
   const objectNamedUrl = {name: placeInput.value, link: imgInput.value};
-  placesList.prepend(createCard(objectNamedUrl));
+  const card = new Card(objectNamedUrl, templateElement, openImagePopup);
+  placesList.prepend(card.createCard());
   closePlacePopup(popupPlaceCardElement); // закрыть попап после сабмита
   evt.target.reset();
 });
+
+// экземпляр класса FormValidator для formProfileInfoValidator для запуска валидации
+const formProfileInfoValidator = new FormValidator(validationConfig, popupProfileFormForValidation);
+formProfileInfoValidator.enableValidation();
+
+// экземпляр класса FormValidator для formPLacesInfoValidator для запуска валидации
+const formPLaceInfoValidator = new FormValidator(validationConfig, popupPLaceFormForValidation);
+formPLaceInfoValidator.enableValidation();
+
 
 openProfilePopupButtonElement.addEventListener('click', openProfilePopup); //по клику на кнопку карандаша попап профиля открывается
 closeProfilePopupButtonElement.addEventListener('click', closeProfilePopup); //по клику на крест попап профиля закрывается
