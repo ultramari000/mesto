@@ -135,8 +135,8 @@ initialCards.forEach((item) => {
 formForSubmitPlaceElement.addEventListener('submit', (evt) => {
   evt.preventDefault(); // запрет отправки на серв
   const objectNamedUrl = {name: placeInput.value, link: imgInput.value};
-  const card = new Card(objectNamedUrl, templateElement, openImagePopup);
-  placesList.prepend(card.createCard());
+  const newCard = addNewCard(objectNamedUrl);
+  placesList.prepend(newCard);
   closePlacePopup(popupPlaceCardElement); // закрыть попап после сабмита
   evt.target.reset();
 });
