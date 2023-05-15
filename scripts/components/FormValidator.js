@@ -65,7 +65,6 @@ resetForOpenedForm() {
     const errorTextElement = this._form.querySelector(`${this._errorTemplateSelector}${input.name}`)
     if (!input.validity.valid) {
       this._hideInputError(errorTextElement, input);
-
     }
   })
   this._button.classList.add(this._inactiveButtonClass);

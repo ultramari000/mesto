@@ -2,7 +2,7 @@ export class Card {
   constructor(cardData, templateElement, openImagePopup) {
     this._cardData = cardData;
     this._link = cardData.link;
-    this._name = cardData.name;
+    this._name = cardData.place;
     this._templateElement = templateElement;
     this._openImagePopup = openImagePopup;
   }
@@ -37,7 +37,7 @@ export class Card {
     this._buttonLikePlaceElement = this._cloneElement.querySelector('.element__info-like');
     this._buttonDeletePlaceElement = this._cloneElement.querySelector('.element__delete-button');
     this._imgPlaceElement.src = this._link;
-    this._imgPlaceElement.alt = this._name;
+    this._imgPlaceElement.alt = `На фото - ${this._name}`;
     this._namePlaceElement.textContent = this._name;
     this._setEventListener();
     return this._cloneElement;
