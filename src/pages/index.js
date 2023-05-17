@@ -16,6 +16,7 @@ import {
   profileInfo,
   validationConfig
 } from '../scripts/utils/constants.js';
+import '../pages/index.css';
 
 // 
 const popupProfileFormForValidation = document.forms.profileForm;
