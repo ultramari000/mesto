@@ -44,20 +44,13 @@ _checkInputValidity(input) {
   }
 }
 
-_setEventListener() {
+enableValidation() {
   this._inputList.forEach((input) => {
     input.addEventListener('input', () => {
       this._checkInputValidity(input);
       this._toggleButtonStyle();
     })
   })
-}
-
-enableValidation() {
-  const formsArray = Array.from(this._form.querySelectorAll(this._inputSelector));
-  formsArray.forEach((form) => {
-    this._setEventListener();
-    })
 }
 
 resetForOpenedForm() {
