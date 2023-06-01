@@ -1,11 +1,11 @@
-import { Card } from '../scripts/components/Card.js';
-import { FormValidator } from '../scripts/components/FormValidator.js';
-import { PopupWithImage } from '../scripts/components/PopupWithImage.js';
-import { Section } from '../scripts/components/Section.js';
-import { UserInfo } from '../scripts/components/UserInfo.js';
-import { PopupWithForm } from '../scripts/components/PopupWithForm.js';
-import { PopupCardDelete } from '../scripts/components/PopupCardDelete.js';
-import { Api } from '../scripts/components/Api.js';
+import { Card } from '../components/Card.js';
+import { FormValidator } from '../components/FormValidator.js';
+import { PopupWithImage } from '../components/PopupWithImage.js';
+import { Section } from '../components/Section.js';
+import { UserInfo } from '../components/UserInfo.js';
+import { PopupWithForm } from '../components/PopupWithForm.js';
+import { PopupCardDelete } from '../components/PopupCardDelete.js';
+import { Api } from '../components/Api.js';
 import {
   initialCards,
   openProfilePopupButtonElement,
@@ -20,7 +20,7 @@ import {
   popupAddAvatarSelector,
   openAddAvatarButtonElement,
   popupDeleteCardSelector
-} from '../scripts/utils/constants.js';
+} from '../utils/constants.js';
 import '../pages/index.css';
 
 // 
@@ -85,9 +85,9 @@ const popupProfile = new PopupWithForm(popupProfileSelector, (data) => {
 });
 
 const popupAddPlace = new PopupWithForm(popupAddPlaceSelector, (data) => {
-  Promise.all([api.getInfo(), api.addCard(data)])
-    .then(([dataUser, cardData]) => {
-      cardData.userId = dataUser._id;
+  api.addCard(data)
+    .then(cardData => {
+      cardData.userId = userInfo.getId();
       section.addItemPrepend(createNewCard(cardData));
       popupAddPlace.close();
     })
@@ -142,6 +142,7 @@ Promise.all([api.getInfo(), api.getCards()])
   .then(([dataUser, cardData]) => {
     cardData.forEach(element => element.userId = dataUser._id);
     userInfo.setUserInfo({ description: dataUser.about, username: dataUser.name, avatar: dataUser.avatar });
+    userInfo.setId(dataUser._id);
     section.addCardFromArray(cardData);
   })
   .catch((error => console.error(`Ошибка при загрузке начальных данных ${error}`)))

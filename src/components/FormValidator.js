@@ -25,13 +25,17 @@ _hasInvalidInput(){
   return Array.from(this._inputList).every((input) => input.validity.valid);
 }
 
+_disableButtonSubmit() {
+  this._button.classList.add(this._inactiveButtonClass);
+  this._button.disabled = true;
+}
+
 _toggleButtonStyle() {
   if (this._hasInvalidInput()) {
     this._button.classList.remove(this._inactiveButtonClass);
     this._button.disabled = false;
   } else {
-    this._button.classList.add(this._inactiveButtonClass);
-    this._button.disabled = true;
+    this._disableButtonSubmit();
 }
 }
 
@@ -60,7 +64,6 @@ resetForOpenedForm() {
       this._hideInputError(errorTextElement, input);
     }
   })
-  this._button.classList.add(this._inactiveButtonClass);
-  this._button.disabled = true;
+  this._disableButtonSubmit();
 }
 }

@@ -16,4 +16,12 @@ export class UserInfo {
     this._profileName.textContent = username;
     this._profileDescription.textContent = description;
   }
+
+  setId(id) {
+    this._id = id;
+  }
+
+  getId() {
+    return this._id;
+  }
 }

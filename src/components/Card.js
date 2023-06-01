@@ -44,7 +44,7 @@ export class Card {
   }
 
   _showVisibilityForDeleteButton() {
-    this._userId === this._ownerId ? this._buttonDeletePlaceElement.style.display = 'block' : this._buttonDeletePlaceElement.style.display = 'none';
+    this._userId === this._ownerId ? this._buttonDeletePlaceElement.style.display = 'block' : this._buttonDeletePlaceElement.remove();
   }
 
   _checkLikeStatus() {
