@@ -28,17 +28,21 @@ const initialCards = [
 
 const openProfilePopupButtonElement = document.querySelector('.profile__info-button'); //кнопка открытия попапа профиля
 const openPlacePopupButtonElement = document.querySelector('.profile__button'); //кнопка с плюсом для добавления карточки места
+const openAddAvatarButtonElement = document.querySelector('.profile__avatar-button');
 
 const popupImageSelector = '.image-popup';
 const listElementsSelector = '.elements-grid';
 const popupProfileSelector = '.popup_profile-info';
 const popupAddPlaceSelector = '.popup_add-place';
+const popupDeleteCardSelector = '.popup_delete-card';
+const popupAddAvatarSelector = '.popup_edit-avatar';
 const templateElement = '#element-template';
 
 //объект, который понадобится в классе UserInfo. В нем – селекторы двух элементов: элемент имени пользователя и элемент информации о себе
 const profileInfo = {
   profileNameElement: '.profile__name',
-  profileDescriptionElement: '.profile__subtitle'
+  profileDescriptionElement: '.profile__subtitle',
+  profileAvatarElement: '.profile__avatar'
 }
 
 // объекты для валидации (перенесены из validate.js из пр6)
@@ -61,5 +65,8 @@ export {
   popupAddPlaceSelector,
   templateElement,
   profileInfo,
-  validationConfig
+  validationConfig,
+  popupDeleteCardSelector,
+  openAddAvatarButtonElement,
+  popupAddAvatarSelector
 };

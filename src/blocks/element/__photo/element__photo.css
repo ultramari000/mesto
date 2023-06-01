@@ -1,9 +1,10 @@
 .element__photo {
   width: 100%;
   aspect-ratio: 1 / 1;
-  max-width: 282px;
+  width: 282px;
+  height: 282px;
   display: block;
-  border-radius: 8px;
+  border-radius: 7px;
 }
 
 .element__photo:hover {
